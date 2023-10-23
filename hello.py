@@ -15,23 +15,40 @@ Execução:
     ou
     ./hello.py
 """
-__version__ = "0.0.1"
+__version__ = "0.1.3"
 __author__ = "Athos Camargo"
 __license__ = "Unlicensed"
 
 import os
+import sys
 
-current_language = os.getenv("LANG", "en_US")[:5]
+arguments = {
+    "lang": None,
+    "count": None,
+}
+for arg in sys.argv[1:]:
+    # TODO Tratar ValueError
+    key, value = arg.split("=")
+    key = key.lstrip("-").strip()
+    value = value.strip()
+    if key not in arguments:
+        print(f"Invalid Option {key}")
+        sys.exit()
+    arguments[key] = value
 
-msg = "Hello, World!"
 
-if current_language == "pt_BR":
-    msg = "Olá, Mundo!"
-elif current_language == "it_IT":
-    msg = "Ciao, Mondo!"
-elif current_language == "es_SP":
-    msg = "Hola, Mundo!"
-elif current_language == "fr_FR":
-    msg = "Bonjour Monde"
+current_language = arguments["lang"]
+if current_language is None:
+    current_language = os.getenv("LANG","en_US")[:5]
 
-print(msg)
+msg = {
+    "en_US": "Hello, World!",
+    "pt_BR": "Ola, Mundo!",
+    "it_IT": "Ciao, Mondo!",
+    "es_SP": "Hola, Mundo!",
+    "fr_FR": "Bonjour, Monde!",
+}
+
+
+
+print(msg[current_language])
