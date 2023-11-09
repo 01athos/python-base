@@ -1,0 +1,3 @@
+minha primeira nota	geral	minha primeira nota no app
+python é foda	tech	A linguagem python é foda
+Java tambem e legal	tech	Java tambem é legal, SQN

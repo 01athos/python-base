@@ -24,7 +24,7 @@ import sys
 
 arguments = {
     "lang": None,
-    "count": None,
+    "count": 1,
 }
 for arg in sys.argv[1:]:
     # TODO Tratar ValueError
@@ -39,7 +39,13 @@ for arg in sys.argv[1:]:
 
 current_language = arguments["lang"]
 if current_language is None:
-    current_language = os.getenv("LANG","en_US")[:5]
+    # TODO: Usar repeticao
+    if "LANG" is os.environ:
+        current_language = os.getenv("LANG")
+    else: 
+        current_language = input("Choose a Language:")
+
+current_language = current_language[:5]
 
 msg = {
     "en_US": "Hello, World!",
@@ -51,4 +57,6 @@ msg = {
 
 
 
-print(msg[current_language])
+print(
+        msg[current_language] * int(arguments["count"])
+)
